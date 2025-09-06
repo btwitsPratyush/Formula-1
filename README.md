@@ -10,7 +10,7 @@ This is a web application for an F1 Racing themed e-commerce store. It allows us
 - User authentication (Login, Signup, Forgot Password)
 - Responsive design
 
-## Technologies Used
+## Technologies Used:-
 
 - React
 - React Router DOM
