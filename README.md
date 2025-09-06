@@ -44,7 +44,7 @@ To run this project locally, follow these steps:
 
     The application should now be running at `http://localhost:5173` (or another port if 5173 is in use).
 
-## Project Structure
+## Project Structure:-
 
 -   `src/components`: Reusable React components.
 -   `src/pages`: Main application pages.
