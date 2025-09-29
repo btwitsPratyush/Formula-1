@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -25,6 +27,11 @@ export const SignUp = () => {
       [e.target.name]: e.target.value
     });
   };
+  const navigate = useNavigate();
+
+const handleBack = () => {
+  navigate(-1); // goes to previous page
+};
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
@@ -53,6 +60,15 @@ export const SignUp = () => {
                   placeholder="First name"
                 />
               </div>
+              <Button
+  variant="ghost"
+  size="sm"
+  onClick={handleBack}
+  className="absolute top-4 left-4 flex items-center gap-1 text-sm text-foreground transition-all px-3 py-1.5 rounded-md bg-white/80 backdrop-blur-md shadow-sm hover:bg-gradient-to-r hover:from-racing-red hover:to-red-500 hover:text-white z-20"
+>
+  <ChevronLeft className="w-4 h-4" />
+  Back
+</Button>
               <div>
                 <Label htmlFor="lastName" className="text-foreground">Last Name</Label>
                 <Input
@@ -68,6 +84,7 @@ export const SignUp = () => {
               </div>
             </div>
             
+            
             <div>
               <Label htmlFor="email" className="text-foreground">Email Address</Label>
               <Input
@@ -81,6 +98,8 @@ export const SignUp = () => {
                 placeholder="your@email.com"
               />
             </div>
+            
+            
             
             <div>
               <Label htmlFor="password" className="text-foreground">Password</Label>
