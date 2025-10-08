@@ -2,7 +2,7 @@
 
 This is a web application for an F1 Racing themed e-commerce store. It allows users to browse products, view product details, add items to a cart, and manage user accounts (login, signup, forgot password).
 
-## Features:-
+## Features:
 
 - Product listing and categorization
 - Product detail pages
