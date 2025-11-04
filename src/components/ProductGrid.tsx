@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { ToastAction } from "@/components/ui/toast";
+import { useNavigate } from "react-router-dom";
 
 interface ProductGridProps {
   products: Product[];
@@ -14,12 +16,13 @@ interface ProductGridProps {
 export const ProductGrid = ({ products }: ProductGridProps) => {
   const { addItem } = useCart();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
       {products.map((product, index) => (
-        <div
-          key={product.id}
+        <div 
+          key={product.id} 
           className="group bg-card rounded-xl overflow-hidden shadow-lg hover:shadow-racing transition-all duration-500 transform hover:scale-105 animate-fade-in border border-border hover:border-racing-red/30"
           style={{ animationDelay: `${index * 100}ms` }}
         >
@@ -57,6 +60,17 @@ export const ProductGrid = ({ products }: ProductGridProps) => {
                       toast({
                         title: "Added to cart",
                         description: `${product.name} has been added to your cart.`,
+                        action: (
+                          <ToastAction
+                            altText="View cart"
+                            className="bg-racing-red text-racing-white hover:bg-red-600 border-0"
+                            onClick={() => navigate("/cart")}
+                          >
+                            View
+                          </ToastAction>
+                        ),
+                        variant: "default",
+                        className: "border border-racing-red/40 bg-white shadow-lg shadow-racing-red/20",
                       });
                     }}
                   >
@@ -115,6 +129,17 @@ export const ProductGrid = ({ products }: ProductGridProps) => {
                       toast({
                         title: "Added to cart",
                         description: `${product.name} has been added to your cart.`,
+                        action: (
+                          <ToastAction
+                            altText="View cart"
+                            className="bg-racing-red text-racing-white hover:bg-red-600 border-0"
+                            onClick={() => navigate("/cart")}
+                          >
+                            View
+                          </ToastAction>
+                        ),
+                        variant: "default",
+                        className: "border border-racing-red/40 bg-white shadow-lg shadow-racing-red/20",
                       });
                     }}
                   >

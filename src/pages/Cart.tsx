@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { Minus, Plus, Trash2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface CartItem {
   id: string;
@@ -13,6 +15,9 @@ interface CartItem {
 
 export const Cart = () => {
   const { items: cartItems, updateQuantity, removeItem, subtotal } = useCart();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [checkingOut, setCheckingOut] = useState(false);
 
   return (
     <div className="min-h-screen bg-background py-12">
@@ -94,8 +99,37 @@ export const Cart = () => {
                   </div>
                 </div>
               </div>
-              <Button variant="racing" size="lg" className="w-full mt-6">
-                Proceed to Checkout
+              <Button
+                variant="racing"
+                size="lg"
+                className="w-full mt-6"
+                disabled={checkingOut || cartItems.length === 0}
+                onClick={() => {
+                  if (cartItems.length === 0) {
+                    toast({
+                      title: "Cart is empty",
+                      description: "Add items before proceeding to checkout.",
+                    });
+                    return;
+                  }
+                  setCheckingOut(true);
+                  toast({
+                    title: "Proceeding to checkout",
+                    description: "Redirecting to sign-in to continue.",
+                  });
+                  setTimeout(() => {
+                    navigate("/login");
+                  }, 900);
+                }}
+              >
+                {checkingOut ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Proceed to Checkout"
+                )}
               </Button>
             </div>
           </div>

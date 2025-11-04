@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import { getProductById, products } from "@/data/products";
 import { Button } from "@/components/ui/button";
@@ -7,12 +7,14 @@ import { Input } from "@/components/ui/input";
 import { ProductGrid } from "@/components/ProductGrid";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 export const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const [searchQuery, setSearchQuery] = useState("");
   const { addItem } = useCart();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   if (!productId) {
     return <div>Product not found</div>;
@@ -107,6 +109,17 @@ export const ProductDetail = () => {
                     toast({
                       title: "Added to cart",
                       description: `${product.name} has been added to your cart.`,
+                      action: (
+                        <ToastAction
+                          altText="View cart"
+                          className="bg-racing-red text-racing-white hover:bg-red-600 border-0"
+                          onClick={() => navigate("/cart")}
+                        >
+                          View
+                        </ToastAction>
+                      ),
+                      variant: "default",
+                      className: "border border-racing-red/40 bg-white shadow-lg shadow-racing-red/20",
                     });
                   }}
                 >
