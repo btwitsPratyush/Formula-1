@@ -5,10 +5,14 @@ import { getProductById, products } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProductGrid } from "@/components/ProductGrid";
+import { useCart } from "@/hooks/use-cart";
+import { useToast } from "@/hooks/use-toast";
 
 export const ProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const [searchQuery, setSearchQuery] = useState("");
+  const { addItem } = useCart();
+  const { toast } = useToast();
   
   if (!productId) {
     return <div>Product not found</div>;
@@ -94,7 +98,18 @@ export const ProductDetail = () => {
               </p>
               
               <div className="space-y-4">
-                <Button variant="racing" size="lg" className="w-full">
+                <Button
+                  variant="racing"
+                  size="lg"
+                  className="w-full"
+                  onClick={() => {
+                    addItem(product, 1);
+                    toast({
+                      title: "Added to cart",
+                      description: `${product.name} has been added to your cart.`,
+                    });
+                  }}
+                >
                   Add to Cart
                 </Button>
                 <Button variant="racing-outline" size="lg" className="w-full">

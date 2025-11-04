@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,9 +15,18 @@ export const Login = () => {
     // Handle login logic here
     console.log("Login attempt:", { email, password });
   };
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4">
+      <Button
+        variant="racing"
+        size="sm"
+        className="fixed top-4 left-4 z-20"
+        onClick={() => navigate(-1)}
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Back
+      </Button>
       <div className="max-w-md w-full space-y-8 relative z-10">
         <Card className="relative overflow-hidden before:absolute before:top-0 before:right-0 before:w-32 before:h-32 before:bg-gradient-to-bl before:from-racing-red/20 before:to-transparent before:rounded-bl-full group-hover:before:animate-pulse bg-gradient-to-br from-white via-red-50 to-racing-red/10 shadow-2xl border border-red-100">
           <CardHeader className="text-center pb-2">

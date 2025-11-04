@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { ShoppingCart, User, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/use-cart";
 
 export const Navbar = () => {
+  const { cartCount } = useCart();
   return (
     <nav className="bg-racing-black border-b border-racing-dark-gray sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,7 +44,7 @@ export const Navbar = () => {
               <Button variant="ghost" size="icon" className="text-racing-white hover:text-racing-red hover:bg-racing-dark-gray relative">
                 <ShoppingCart className="h-5 w-5" />
                 <span className="absolute -top-1 -right-1 bg-racing-red text-racing-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  0
+                  {cartCount}
                 </span>
               </Button>
             </Link>

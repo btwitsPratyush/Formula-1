@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ArrowLeft } from "lucide-react";
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -25,9 +26,18 @@ export const SignUp = () => {
       [e.target.name]: e.target.value
     });
   };
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
+      <Button
+        variant="racing"
+        size="sm"
+        className="fixed top-4 left-4 z-20"
+        onClick={() => navigate(-1)}
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Back
+      </Button>
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <div className="w-16 h-16 bg-racing-red rounded-lg flex items-center justify-center mx-auto mb-6">

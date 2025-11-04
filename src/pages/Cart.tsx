@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/hooks/use-cart";
 
 interface CartItem {
   id: string;
@@ -11,38 +12,7 @@ interface CartItem {
 }
 
 export const Cart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: "1",
-      name: "Racing Stripe Tee",
-      price: 49.99,
-      image: "/lovable-uploads/13689286-fdf9-4151-af15-30bdd2e7ddab.png",
-      quantity: 2
-    },
-    {
-      id: "2",
-      name: "Velocity T-Shirt",
-      price: 54.99,
-      image: "/lovable-uploads/13689286-fdf9-4151-af15-30bdd2e7ddab.png",
-      quantity: 1
-    }
-  ]);
-
-  const updateQuantity = (id: string, newQuantity: number) => {
-    if (newQuantity === 0) {
-      setCartItems(cartItems.filter(item => item.id !== id));
-    } else {
-      setCartItems(cartItems.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ));
-    }
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const { items: cartItems, updateQuantity, removeItem, subtotal } = useCart();
 
   return (
     <div className="min-h-screen bg-background py-12">
@@ -72,12 +42,10 @@ export const Cart = () => {
                       alt={item.name}
                       className="w-20 h-20 object-cover rounded-lg"
                     />
-                    
                     <div className="flex-grow">
                       <h3 className="text-lg font-semibold text-foreground">{item.name}</h3>
                       <p className="text-racing-red font-bold">${item.price}</p>
                     </div>
-                    
                     {/* Quantity Controls */}
                     <div className="flex items-center space-x-3">
                       <Button 
@@ -96,7 +64,6 @@ export const Cart = () => {
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
-                    
                     {/* Remove Button */}
                     <Button 
                       variant="destructive" 
@@ -109,7 +76,6 @@ export const Cart = () => {
                 </div>
               ))}
             </div>
-
             {/* Cart Summary */}
             <div className="bg-card rounded-lg p-6 shadow-lg">
               <div className="space-y-4">
@@ -128,7 +94,6 @@ export const Cart = () => {
                   </div>
                 </div>
               </div>
-              
               <Button variant="racing" size="lg" className="w-full mt-6">
                 Proceed to Checkout
               </Button>
