@@ -18,7 +18,7 @@ This is a web application for an F1 Racing themed e-commerce store. It allows us
 - Vite
 - TanStack Query
 
-## Getting Started:-
+## Getting Started:
 
 To run this project locally, follow these steps:
 
